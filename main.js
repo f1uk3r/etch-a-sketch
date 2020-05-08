@@ -35,9 +35,16 @@ function blackHover() {
     })
 }
 
-blackHover();
 
 function randomColor() {
     let allBoxes = document.querySelectorAll('.single-box')
-    
+    allBoxes.forEach((box) => {
+        box.addEventListener('mouseenter', (e) => {
+            let red = Math.floor(Math.random()*256);
+            let blue = Math.floor(Math.random()*256);
+            let green = Math.floor(Math.random()*256);
+            e.target.style.backgroundColor = `rgb(${red}, ${blue}, ${green})`
+        })
+    })
 }
+randomColor()
