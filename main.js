@@ -1,5 +1,6 @@
-var gridBox = 16;
-
+let gridBox = 25;
+let buttonActive = "randomColor";
+let resetButton = document.querySelector('.reset')
 
 function createGrid(gridSize) {
     for (let i = 0; i < gridSize; i++) {
@@ -17,7 +18,7 @@ function createGrid(gridSize) {
             singleBox.className += " box-" + i + "-" + j
             singleBox.style.width = 100/gridSize + "%";
             singleBox.style.height = "100%";
-            singleBox.style.backgroundColor = "#f6f6f6"
+            singleBox.style.backgroundColor = "white"
             singleBox.style.border = "1px solid black";
             document.querySelector(".rowContainer" + i).appendChild(singleBox);
         }
@@ -25,6 +26,19 @@ function createGrid(gridSize) {
 }
 
 createGrid(gridBox);
+setTheme(buttonActive); 
+
+function setTheme(buttonActive) {
+    if (buttonActive == "black") {
+        blackHover();
+    }
+    else if (buttonActive == "randomColor") {
+        randomHover();
+    }
+    else if (buttonActive == "grayScale") {
+        grayScale();
+    }
+}
 
 function blackHover() {
     let allBoxes = document.querySelectorAll('.single-box')
@@ -36,7 +50,7 @@ function blackHover() {
 }
 
 
-function randomColor() {
+function randomHover() {
     let allBoxes = document.querySelectorAll('.single-box')
     allBoxes.forEach((box) => {
         box.addEventListener('mouseenter', (e) => {
@@ -47,4 +61,15 @@ function randomColor() {
         })
     })
 }
-randomColor()
+
+/*function reset() {
+    let allBoxes = document.querySelectorAll('.single-box');
+    allBoxes.forEach((box) => {
+        box.style.backgroundColor = 'white';
+    })
+    let divCount = prompt('How many squares wide should the grid be? (1-100)');
+    createGrid(divCount)
+
+}
+
+resetButton.addEventListener('click', reset())*/
