@@ -1,6 +1,20 @@
+let defaultGridSize = 16;
+let resetButton = document.querySelector('.reset');
+let blackButton = document.querySelector('.black');
+let randomColorButton = document.querySelector('.random-color');
+let grayScaleButton = document.querySelector('.gray-scale');
 
-let buttonActive = "grayScale";
-let resetButton = document.querySelector('.reset')
+function main() {
+
+    createGrid(defaultGridSize);
+    grayScaleHover();
+    blackButton.addEventListener('click', blackHover);
+    randomColorButton.addEventListener('click', randomHover);
+    grayScaleButton.addEventListener('click', grayScaleHover);
+    resetButton.addEventListener('click', reset);
+}
+
+main()
 
 function createGrid(gridSize) {
     for (let i = 0; i < gridSize; i++) {
@@ -21,19 +35,6 @@ function createGrid(gridSize) {
             singleBox.style.border = "1px solid black";
             document.querySelector(".rowContainer" + i).appendChild(singleBox);
         }
-    }
-}
-
-
-function setTheme(buttonActive) {
-    if (buttonActive == "black") {
-        blackHover();
-    }
-    else if (buttonActive == "randomColor") {
-        randomHover();
-    }
-    else if (buttonActive == "grayScale") {
-        grayScaleHover();
     }
 }
 
@@ -76,16 +77,11 @@ function grayScaleHover() {
     });
 }
 
-function reset(buttonActive) {
+function reset() {
     let gridContainer = document.querySelector('.sketchpad')
 
     let newGridBox = prompt('How many squares wide should the grid be? (1-100)');
-    // remove old grid
-    while (gridContainer.firstChild) {
-        document.removeChild(gridContainer.firstChild);
-    }
+    gridContainer.innerHTML = '';
     createGrid(newGridBox);
-    setTheme(buttonActive);
 }
 
-resetButton.addEventListener('click', reset(buttonActive))
