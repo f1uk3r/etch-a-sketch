@@ -1,5 +1,5 @@
 
-let buttonActive = "randomColor";
+let buttonActive = "grayScale";
 let resetButton = document.querySelector('.reset')
 
 function createGrid(gridSize) {
@@ -10,7 +10,6 @@ function createGrid(gridSize) {
         rowContainer.style.flexWrap = "nowrap";
         rowContainer.style.width = "100%";
         rowContainer.style.height = 100/gridSize + "%";
-        rowContainer.style.backgroundColor = "black"
         document.querySelector(".sketchpad").appendChild(rowContainer);
         for (let j = 0; j < gridSize; j++) {
             var singleBox = document.createElement("div");
@@ -18,7 +17,7 @@ function createGrid(gridSize) {
             singleBox.className += " box-" + i + "-" + j
             singleBox.style.width = 100/gridSize + "%";
             singleBox.style.height = "100%";
-            singleBox.style.backgroundColor = "white"
+            singleBox.style.backgroundColor = "rgb(255, 255, 255)"
             singleBox.style.border = "1px solid black";
             document.querySelector(".rowContainer" + i).appendChild(singleBox);
         }
@@ -34,7 +33,7 @@ function setTheme(buttonActive) {
         randomHover();
     }
     else if (buttonActive == "grayScale") {
-        grayScale();
+        grayScaleHover();
     }
 }
 
@@ -58,6 +57,23 @@ function randomHover() {
             e.target.style.backgroundColor = `rgb(${red}, ${blue}, ${green})`
         })
     })
+}
+
+function grayScaleHover() {
+    let allBoxes = document.querySelectorAll('.single-box');
+    allBoxes.forEach((box) => {
+        box.addEventListener('mouseenter', (e) => {
+            let colorInfo = e.target.style.backgroundColor;
+            let colorValues = colorInfo.slice(4, -1);
+            let rgbArray = colorValues.split(", ");
+
+            let rValue = rgbArray[0]-26;
+            let gValue = rgbArray[1]-26;
+            let bValue = rgbArray[2]-26;
+
+            e.target.style.backgroundColor = `rgb(${rValue}, ${gValue}, ${bValue})`;
+        });
+    });
 }
 
 function reset(buttonActive) {
